@@ -1,25 +1,20 @@
 import { Router, Request, Response } from "express";
+import { MongoConnectMiddleware } from "../middlewares/MongoConnectMiddleware";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  try {
-    return res.status(200).json({
-      message: "OK",
-    });
-  } catch (error) {
-    return error;
+router.get(
+  "/",
+  MongoConnectMiddleware.connect,
+  (req: Request, res: Response) => {
+    try {
+      return res.status(200).json({
+        message: "OK",
+      });
+    } catch (error) {
+      return error;
+    }
   }
-});
-
-router.get("/teste", (req: Request, res: Response) => {
-  try {
-    return res.status(200).json({
-      message: "teste",
-    });
-  } catch (error) {
-    return error;
-  }
-});
+);
 
 export default router;
