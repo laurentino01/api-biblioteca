@@ -11,9 +11,13 @@ export class MongoConnectMiddleware {
       // @ts-ignore
       await mongoose.connect(process.env.MONGO_URI);
       console.log("conectado ao mongo");
-      next();
+      try {
+        next();
+      } catch (error) {}
+
+      return mongoose;
     } catch (error: any) {
-      throw new Error(error);
+      return "Não foi possivel conectar";
     }
   }
 }

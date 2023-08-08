@@ -5,7 +5,7 @@ export class LivroEntitie {
   private readonly _id: string;
   private titulo: string;
   private NumeroDePaginas: number;
-  private ISBN: string;
+  public readonly ISBN: string;
   private editora: string;
 
   constructor(
@@ -22,23 +22,14 @@ export class LivroEntitie {
     this._id = _id ? _id : uuidv4();
   }
 
-  public async insertLivro(insertLivroPort: InsertLivroPort): Promise<string> {
-    try {
-      const verifyEmail = await insertLivroPort.findByISBN(this.ISBN);
-      if (verifyEmail) {
-        const res = await insertLivroPort.insertLivro(
-          this.titulo,
-          this.NumeroDePaginas,
-          this.ISBN,
-          this.editora,
-          this._id
-        );
-        return res;
-      }
-
+  public async insertLivro(
+    insertLivroAdapter: InsertLivroPort
+  ): Promise<string> {
+    const verifyISBN = await insertLivroAdapter.findByISBN();
+    if (!verifyISBN) {
       return "ISBN já existente";
-    } catch (error: any) {
-      throw new Error(error);
     }
+    const res = await insertLivroAdapter.insertLivro();
+    return res;
   }
 }
