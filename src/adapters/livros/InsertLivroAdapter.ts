@@ -5,24 +5,33 @@ import { LivroEntitie } from "../../domain/entities/LivroEntitie";
 
 export class InsertLivroAdapter implements InsertLivroPort {
   private livroModel: mongoose.Model<any> = livroModel;
-  private livroEntitie: LivroEntitie;
-  constructor(livroEntitie: LivroEntitie) {
-    this.livroEntitie = livroEntitie;
-  }
 
-  async findByISBN(): Promise<boolean> {
+  constructor() {}
+
+  async findByISBN(ISBN: string): Promise<boolean> {
     const findISBN = await this.livroModel.findOne({
-      ISBN: this.livroEntitie.ISBN,
+      ISBN: ISBN,
     });
-    if (findISBN !== undefined) {
-      return true;
+    if (findISBN) {
+      return false;
     }
-
-    return false;
+    return true;
   }
 
-  async insertLivro(): Promise<any> {
-    const res = await this.livroModel.create(this.livroEntitie);
+  async insertLivro(
+    _id: string,
+    titulo: string,
+    NumeroDePaginas: number,
+    ISBN: string,
+    editora: string
+  ): Promise<any> {
+    const res = await this.livroModel.create({
+      _id,
+      titulo,
+      NumeroDePaginas,
+      ISBN,
+      editora,
+    });
     return res;
   }
 }

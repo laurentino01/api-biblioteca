@@ -7,7 +7,7 @@ export const insertLivroController: RequestHandler = async (req, res) => {
     const { titulo, numeroDePaginas, ISBN, editora } = req.body;
 
     const livro = new LivroEntitie(titulo, numeroDePaginas, ISBN, editora);
-    const insertLivroAdater = new InsertLivroAdapter(livro);
+    const insertLivroAdater = new InsertLivroAdapter();
 
     const resDB = await livro.insertLivro(insertLivroAdater);
 
@@ -15,7 +15,7 @@ export const insertLivroController: RequestHandler = async (req, res) => {
       message: resDB,
     });
   } catch (error: any) {
-    res.status(401).json({
+    res.status(400).json({
       status: "Error",
       message: error,
     });
