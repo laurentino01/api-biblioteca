@@ -2,6 +2,8 @@ import { v4 as uuidv4 } from "uuid";
 import { InsertLivroPort } from "../ports/livros/InsertLivroPort";
 import { GetAllLivrosPort } from "../ports/livros/GetAllLivrosPort";
 import { GetLivroById } from "../ports/livros/GetLivroByIdPort";
+import { UpdateLivroByIdPort } from "../ports/livros/UpdateLivroByIdPort";
+import { INewData } from "../../interfaces/INewData";
 
 export class LivroEntitie {
   private readonly _id: string;
@@ -54,6 +56,15 @@ export class LivroEntitie {
     id: string
   ): Promise<any> {
     const res = await getLivroById.getLivroById(id);
+    return res;
+  }
+
+  public static async updateLivroById(
+    updateLivroById: UpdateLivroByIdPort,
+    id: string,
+    newData: INewData
+  ): Promise<any> {
+    const res = await updateLivroById.updateLivroById(id, newData);
     return res;
   }
 }
