@@ -1,12 +1,16 @@
 import mongoose from "mongoose";
-import { InsertLivroPort } from "../../domain/ports/InsertLivroPort";
+import { InsertLivroPort } from "../../domain/ports/livros/InsertLivroPort";
 import { livroModel } from "../../models/livroModel";
 import { LivroEntitie } from "../../domain/entities/LivroEntitie";
+import { MongooseAdapter } from "./MongooseAdapter";
 
-export class InsertLivroAdapter implements InsertLivroPort {
-  private livroModel: mongoose.Model<any> = livroModel;
-
-  constructor() {}
+export class InsertLivroAdapter
+  extends MongooseAdapter
+  implements InsertLivroPort
+{
+  constructor() {
+    super();
+  }
 
   async findByISBN(ISBN: string): Promise<boolean> {
     const findISBN = await this.livroModel.findOne({

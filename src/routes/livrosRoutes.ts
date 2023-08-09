@@ -1,22 +1,12 @@
 import { Router, Request, Response } from "express";
 import { MongoConnectMiddleware } from "../middlewares/MongoConnectMiddleware";
 import { insertLivroController } from "../controllers/livros/InsertLivroController";
+import { getAllLivrosController } from "../controllers/livros/getAllLivrosController";
+import { getLivroByIdController } from "../controllers/livros/getLivroByIdController";
 
 const router = Router();
 
-router.get(
-  "/",
-  MongoConnectMiddleware.connect,
-  (req: Request, res: Response) => {
-    try {
-      return res.status(200).json({
-        message: "OK",
-      });
-    } catch (error) {
-      return error;
-    }
-  }
-);
+router.get("/", MongoConnectMiddleware.connect, getAllLivrosController);
 
 router.post(
   "/cadastrar",
@@ -24,19 +14,6 @@ router.post(
   insertLivroController
 );
 
-/* router.get("/search", (req: Request, res: Response) => {
-  try {
-    fetch("https://openlibrary.org/books/OL7353617M.json").then((data: any) => {
-      res.status(200).json({
-        message: data,
-      });
-    });
-  } catch (error) {
-    res.status(400).json({
-      status: "Error",
-      message: error,
-    });
-  }
-}); */
+router.get("/:id", MongoConnectMiddleware.connect, getLivroByIdController);
 
 export default router;
