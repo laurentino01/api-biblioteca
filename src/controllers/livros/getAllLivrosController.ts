@@ -7,9 +7,7 @@ export const getAllLivrosController: RequestHandler = async (req, res) => {
     const getAllLivrosAdapter = new GetAllLivrosAdapter();
     const resDB = await LivroEntitie.getAllLivros(getAllLivrosAdapter);
 
-    res.status(200).json({
-      BooksList: resDB,
-    });
+    res.status(200).json(resDB);
   } catch (error: any) {
     res.status(400).json({
       status: "Error",

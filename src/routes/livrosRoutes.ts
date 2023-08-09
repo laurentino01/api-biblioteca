@@ -9,13 +9,9 @@ const router = Router();
 
 router.get("/", MongoConnectMiddleware.connect, getAllLivrosController);
 
-router.get("/:id", MongoConnectMiddleware.connect, getLivroByIdController);
+router.post("/", MongoConnectMiddleware.connect, insertLivroController);
 
-router.post(
-  "/cadastrar",
-  MongoConnectMiddleware.connect,
-  insertLivroController
-);
+router.get("/:id", MongoConnectMiddleware.connect, getLivroByIdController);
 
 router.put("/:id", MongoConnectMiddleware.connect, updateLivroByIdController);
 
