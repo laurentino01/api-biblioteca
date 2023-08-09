@@ -24,4 +24,19 @@ router.post(
   insertLivroController
 );
 
+/* router.get("/search", (req: Request, res: Response) => {
+  try {
+    fetch("https://openlibrary.org/books/OL7353617M.json").then((data: any) => {
+      res.status(200).json({
+        message: data,
+      });
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "Error",
+      message: error,
+    });
+  }
+}); */
+
 export default router;
