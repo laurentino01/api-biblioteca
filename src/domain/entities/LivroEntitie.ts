@@ -4,6 +4,7 @@ import { GetAllLivrosPort } from "../ports/livros/GetAllLivrosPort";
 import { GetLivroById } from "../ports/livros/GetLivroByIdPort";
 import { UpdateLivroByIdPort } from "../ports/livros/UpdateLivroByIdPort";
 import { INewData } from "../../interfaces/INewData";
+import { DeleteLivroByIdPort } from "../ports/livros/DeleteLivroByIdPort";
 
 export class LivroEntitie {
   private readonly _id: string;
@@ -65,6 +66,14 @@ export class LivroEntitie {
     newData: INewData
   ): Promise<any> {
     const res = await updateLivroById.updateLivroById(id, newData);
+    return res;
+  }
+
+  public static async deleteLivroById(
+    deleteLivroByIdAdapter: DeleteLivroByIdPort,
+    id: string
+  ): Promise<any> {
+    const res = await deleteLivroByIdAdapter.deleteLivroById(id);
     return res;
   }
 }
