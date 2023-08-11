@@ -10,6 +10,7 @@ dotenv.config();
 app.use(
   cors({
     origin: process.env.AUTH_DOMAIN,
+    allowedHeaders: process.env.AUTH_DOMAIN,
   })
 );
 app.use(express.json());
