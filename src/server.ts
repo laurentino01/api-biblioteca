@@ -8,7 +8,10 @@ const app = express();
 dotenv.config();
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", process.env.AUTH_DOMAIN);
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://biblioteca-st.netlify.app/"
+  );
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
   app.use(cors());
   next();
