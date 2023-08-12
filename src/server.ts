@@ -7,15 +7,12 @@ const app = express();
 
 dotenv.config();
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://biblioteca-st.netlify.app/"
-  );
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-  app.use(cors());
-  next();
-});
+app.use(
+  cors({
+    methods: "GET,PUT,DELETE,POST",
+    origin: "https://biblioteca-st.netlify.app/",
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
