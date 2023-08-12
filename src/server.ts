@@ -10,7 +10,7 @@ dotenv.config();
 app.use(
   cors({
     methods: "GET,PUT,DELETE,POST",
-    origin: "https://biblioteca-st.netlify.app",
+    origin: "*",
   })
 );
 app.use(express.json());
